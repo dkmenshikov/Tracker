@@ -9,21 +9,27 @@
 /* Begin PBXBuildFile section */
 		3218AA332BEFA55300F36671 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218AA322BEFA55300F36671 /* AppDelegate.swift */; };
 		3218AA352BEFA55300F36671 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218AA342BEFA55300F36671 /* SceneDelegate.swift */; };
-		3218AA372BEFA55300F36671 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218AA362BEFA55300F36671 /* ViewController.swift */; };
 		3218AA3C2BEFA56000F36671 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3218AA3B2BEFA56000F36671 /* Assets.xcassets */; };
 		3218AA3F2BEFA56000F36671 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 3218AA3E2BEFA56000F36671 /* Base */; };
 		3218AA482BEFB85500F36671 /* TrackersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218AA472BEFB85500F36671 /* TrackersViewController.swift */; };
+		3218AA4A2BEFBFD800F36671 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218AA492BEFBFD800F36671 /* TabBarController.swift */; };
+		3218AA4C2BEFCB8200F36671 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218AA4B2BEFCB8200F36671 /* StatsViewController.swift */; };
+		3218AA502BEFD2C100F36671 /* TrackersNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218AA4F2BEFD2C100F36671 /* TrackersNavigationController.swift */; };
+		3218AA532BEFDB8C00F36671 /* TrackerDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218AA522BEFDB8C00F36671 /* TrackerDatePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3218AA2F2BEFA55300F36671 /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3218AA322BEFA55300F36671 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3218AA342BEFA55300F36671 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3218AA362BEFA55300F36671 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3218AA3B2BEFA56000F36671 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3218AA3E2BEFA56000F36671 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3218AA402BEFA56000F36671 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3218AA472BEFB85500F36671 /* TrackersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersViewController.swift; sourceTree = "<group>"; };
+		3218AA492BEFBFD800F36671 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		3218AA4B2BEFCB8200F36671 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
+		3218AA4F2BEFD2C100F36671 /* TrackersNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersNavigationController.swift; sourceTree = "<group>"; };
+		3218AA522BEFDB8C00F36671 /* TrackerDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerDatePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,10 +62,10 @@
 		3218AA312BEFA55300F36671 /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				3218AA512BEFDB6800F36671 /* Elements */,
 				3218AA462BEFB80000F36671 /* View Controllers */,
 				3218AA322BEFA55300F36671 /* AppDelegate.swift */,
 				3218AA342BEFA55300F36671 /* SceneDelegate.swift */,
-				3218AA362BEFA55300F36671 /* ViewController.swift */,
 				3218AA3B2BEFA56000F36671 /* Assets.xcassets */,
 				3218AA3D2BEFA56000F36671 /* LaunchScreen.storyboard */,
 				3218AA402BEFA56000F36671 /* Info.plist */,
@@ -70,9 +76,20 @@
 		3218AA462BEFB80000F36671 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3218AA492BEFBFD800F36671 /* TabBarController.swift */,
+				3218AA4F2BEFD2C100F36671 /* TrackersNavigationController.swift */,
 				3218AA472BEFB85500F36671 /* TrackersViewController.swift */,
+				3218AA4B2BEFCB8200F36671 /* StatsViewController.swift */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		3218AA512BEFDB6800F36671 /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+				3218AA522BEFDB8C00F36671 /* TrackerDatePicker.swift */,
+			);
+			path = Elements;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,10 +162,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3218AA372BEFA55300F36671 /* ViewController.swift in Sources */,
 				3218AA482BEFB85500F36671 /* TrackersViewController.swift in Sources */,
 				3218AA332BEFA55300F36671 /* AppDelegate.swift in Sources */,
+				3218AA4A2BEFBFD800F36671 /* TabBarController.swift in Sources */,
+				3218AA532BEFDB8C00F36671 /* TrackerDatePicker.swift in Sources */,
+				3218AA4C2BEFCB8200F36671 /* StatsViewController.swift in Sources */,
 				3218AA352BEFA55300F36671 /* SceneDelegate.swift in Sources */,
+				3218AA502BEFD2C100F36671 /* TrackersNavigationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
