@@ -16,6 +16,8 @@
 		3218AA4C2BEFCB8200F36671 /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218AA4B2BEFCB8200F36671 /* StatsViewController.swift */; };
 		3218AA502BEFD2C100F36671 /* TrackersNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218AA4F2BEFD2C100F36671 /* TrackersNavigationController.swift */; };
 		3218AA532BEFDB8C00F36671 /* TrackerDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218AA522BEFDB8C00F36671 /* TrackerDatePicker.swift */; };
+		3218AA552BEFF1AB00F36671 /* TrackerSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218AA542BEFF1AB00F36671 /* TrackerSearchBar.swift */; };
+		3218AA572BEFFCB000F36671 /* EmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218AA562BEFFCB000F36671 /* EmptyListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		3218AA4B2BEFCB8200F36671 /* StatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsViewController.swift; sourceTree = "<group>"; };
 		3218AA4F2BEFD2C100F36671 /* TrackersNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackersNavigationController.swift; sourceTree = "<group>"; };
 		3218AA522BEFDB8C00F36671 /* TrackerDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerDatePicker.swift; sourceTree = "<group>"; };
+		3218AA542BEFF1AB00F36671 /* TrackerSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerSearchBar.swift; sourceTree = "<group>"; };
+		3218AA562BEFFCB000F36671 /* EmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,8 @@
 			isa = PBXGroup;
 			children = (
 				3218AA522BEFDB8C00F36671 /* TrackerDatePicker.swift */,
+				3218AA542BEFF1AB00F36671 /* TrackerSearchBar.swift */,
+				3218AA562BEFFCB000F36671 /* EmptyListView.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -162,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3218AA552BEFF1AB00F36671 /* TrackerSearchBar.swift in Sources */,
 				3218AA482BEFB85500F36671 /* TrackersViewController.swift in Sources */,
 				3218AA332BEFA55300F36671 /* AppDelegate.swift in Sources */,
 				3218AA4A2BEFBFD800F36671 /* TabBarController.swift in Sources */,
@@ -169,6 +176,7 @@
 				3218AA4C2BEFCB8200F36671 /* StatsViewController.swift in Sources */,
 				3218AA352BEFA55300F36671 /* SceneDelegate.swift in Sources */,
 				3218AA502BEFD2C100F36671 /* TrackersNavigationController.swift in Sources */,
+				3218AA572BEFFCB000F36671 /* EmptyListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

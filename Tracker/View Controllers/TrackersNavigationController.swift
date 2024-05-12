@@ -23,6 +23,7 @@ final class TrackersNavigationController: UINavigationController {
         let leftItem = UIButton()
         leftItem.setImage(.addTrackerButton, for: [])
         navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(customView: leftItem)
+//        TODO: - ПЕРЕОПРЕДЕЛИТЬ ОБЛАСТЬ НАЖАТИЯ КНОПКИ НА 42*42 с 19*18
         
         let rightItem = TrackerDatePicker()
         navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(customView: rightItem)

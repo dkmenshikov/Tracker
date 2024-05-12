@@ -16,17 +16,18 @@ final class TabBarController: UITabBarController {
     
     func setAppearence() {
         tabBar.backgroundColor = .tWhite
-        
-        let edgeView = UIView()
-        edgeView.backgroundColor = .lightGray
-        edgeView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(edgeView)
-        NSLayoutConstraint.activate([
-            edgeView.leftAnchor.constraint(equalTo: tabBar.leftAnchor),
-            edgeView.rightAnchor.constraint(equalTo: tabBar.rightAnchor),
-            edgeView.bottomAnchor.constraint(equalTo: tabBar.topAnchor),
-            edgeView.heightAnchor.constraint(equalToConstant: 1)
-        ])
+//        let edgeView = UIView()
+//        edgeView.backgroundColor = .lightGray
+//        view.addSubview(tabBar)
+//        view.addSubview(edgeView)
+//        edgeView.translatesAutoresizingMaskIntoConstraints = false
+//
+//        NSLayoutConstraint.activate([
+//            edgeView.leftAnchor.constraint(equalTo: tabBar.leftAnchor),
+//            edgeView.rightAnchor.constraint(equalTo: tabBar.rightAnchor),
+//            edgeView.bottomAnchor.constraint(equalTo: tabBar.topAnchor, constant: -1),
+//            edgeView.heightAnchor.constraint(equalToConstant: 1)
+//        ])
     }
     
 }
