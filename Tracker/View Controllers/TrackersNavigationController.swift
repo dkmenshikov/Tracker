@@ -14,12 +14,12 @@ final class TrackersNavigationController: UINavigationController {
         configureItems()
     }
     
-    func configureVC() {
+    private func configureVC() {
         let trackersVC = TrackersViewController()
         viewControllers = [trackersVC]
     }
     
-    func configureItems() {
+    private func configureItems() {
         let leftItem = UIButton()
         leftItem.setImage(.addTrackerButton, for: [])
         navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(customView: leftItem)

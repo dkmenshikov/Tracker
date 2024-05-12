@@ -14,15 +14,7 @@ final class TabBarController: UITabBarController {
         setAppearence()
     }
     
-    func setAppearence() {
-        tabBar.backgroundColor = .tWhite
-    }
-    
-}
-
-extension TabBarController {
-    
-    func setVCs() {
+    private func setVCs() {
         let trackersNavigationController = TrackersNavigationController()
         trackersNavigationController.tabBarItem = UITabBarItem(title: "Трекеры",
                                                                image: .trackerTabBarIcon,
@@ -33,4 +25,27 @@ extension TabBarController {
                                           selectedImage: nil)
         viewControllers = [trackersNavigationController, statsVC]
     }
+    
+}
+
+//MARK: - Layout
+extension TabBarController {
+    
+    private func setAppearence() {
+        tabBar.backgroundColor = .tWhite
+        
+        let tabBarEdgeView = UIView()
+        tabBarEdgeView.backgroundColor = .lightGray
+        tabBar.addSubview(tabBarEdgeView)
+        
+        tabBarEdgeView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            tabBarEdgeView.leftAnchor.constraint(equalTo: tabBar.leftAnchor),
+            tabBarEdgeView.rightAnchor.constraint(equalTo: tabBar.rightAnchor),
+            tabBarEdgeView.bottomAnchor.constraint(equalTo: tabBar.topAnchor, constant: -1),
+            tabBarEdgeView.heightAnchor.constraint(equalToConstant: 1)
+        ])
+    }
+
 }

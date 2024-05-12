@@ -12,8 +12,6 @@ final class TrackersViewController: UIViewController {
 //    MARK: - Private properties
     
     private let emptyListView = EmptyListView()
-    private let tabBarEdgeView = UIView()
-
     
 //    MARK: - Lifecycle
     
@@ -29,7 +27,7 @@ final class TrackersViewController: UIViewController {
 
 extension TrackersViewController {
     
-    func setViews() {
+    private func setViews() {
         
         guard let navigationController else { return }
         guard let tabBarController else { return }
@@ -39,26 +37,14 @@ extension TrackersViewController {
         view.addSubview(navigationBar)
         view.addSubview(emptyListView)
         
-        tabBarEdgeView.backgroundColor = .lightGray
-        tabBar.addSubview(tabBarEdgeView)
-
-        
-        setConstraints(views: [emptyListView, tabBarEdgeView], tabBar: tabBar, navigationBar: navigationBar)
+        setConstraints(views: [emptyListView], tabBar: tabBar, navigationBar: navigationBar)
     }
     
-    func setConstraints(views: [UIView], tabBar: UITabBar, navigationBar: UINavigationBar) {
+    private func setConstraints(views: [UIView], tabBar: UITabBar, navigationBar: UINavigationBar) {
         
         views.forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-        
-//        полоса края TabBar
-        NSLayoutConstraint.activate([
-            tabBarEdgeView.leftAnchor.constraint(equalTo: tabBar.leftAnchor),
-            tabBarEdgeView.rightAnchor.constraint(equalTo: tabBar.rightAnchor),
-            tabBarEdgeView.bottomAnchor.constraint(equalTo: tabBar.topAnchor, constant: 1),
-            tabBarEdgeView.heightAnchor.constraint(equalToConstant: 1)
-        ])
         
 //        Вью с отображением инфоромации о пустом списке трекеров
         NSLayoutConstraint.activate([
