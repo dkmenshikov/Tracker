@@ -27,6 +27,13 @@ final class TrackersNavigationController: UINavigationController {
         
         let rightItem = TrackerDatePicker()
         navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(customView: rightItem)
+        
+        let searchController = TrackerSearchBar(searchResultsController: nil)
+        navigationItem.searchController = searchController
+        navigationBar.prefersLargeTitles = true
+        navigationBar.topItem?.title = "Трекеры"
+        navigationBar.topItem?.searchController = searchController
+
     }
 
 }

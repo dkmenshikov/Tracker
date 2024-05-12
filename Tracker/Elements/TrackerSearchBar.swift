@@ -11,7 +11,7 @@ final class TrackerSearchBar: UISearchController {
     
     override init(searchResultsController: UIViewController?) {
         super.init(searchResultsController: searchResultsController)
-        
+        configure()
     }
     
     required init?(coder: NSCoder) {
@@ -20,7 +20,6 @@ final class TrackerSearchBar: UISearchController {
     
     private func configure() {
         searchBar.placeholder = "Поиск"
-//        searchBar.showsCancelButton = true
         searchBar.setValue("Отменить", forKey: "cancelButtonText")
     }
     
