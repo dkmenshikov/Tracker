@@ -9,6 +9,11 @@ import UIKit
 
 final class TrackersViewController: UIViewController {
     
+//    MARK: - Public properties
+    
+    var categories: [TrackerCategory]?
+    var completedTrackers: [TrackerRecord]?
+    
 //    MARK: - Private properties
     
     private let emptyListView = EmptyListView()
