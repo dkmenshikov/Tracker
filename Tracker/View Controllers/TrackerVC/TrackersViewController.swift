@@ -18,12 +18,20 @@ final class TrackersViewController: UIViewController {
             Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dates: [
                 .init(timeIntervalSince1970: 212314)
             ])),
-            Tracker(id: UUID(), name: "1112", color: .tBlack, emoji: "👾", schedule: Schedule(dates: [
+            Tracker(id: UUID(), name: "11123433", color: .tBlack, emoji: "👾", schedule: Schedule(dates: [
                 .init(timeIntervalSince1970: 212314)
             ]))
         ]),
         TrackerCategory(title: "1113333", trackers: [
             Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dates: [
+                .init(timeIntervalSince1970: 212314)
+            ])),
+            Tracker(id: UUID(), name: "1112", color: .tBlack, emoji: "👾", schedule: Schedule(dates: [
+                .init(timeIntervalSince1970: 212314)
+            ]))
+        ]),
+        TrackerCategory(title: "FFFFFF", trackers: [
+            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "🤖", schedule: Schedule(dates: [
                 .init(timeIntervalSince1970: 212314)
             ])),
             Tracker(id: UUID(), name: "1112", color: .tBlack, emoji: "👾", schedule: Schedule(dates: [
@@ -38,18 +46,29 @@ final class TrackersViewController: UIViewController {
     private let emptyListView = EmptyListView()
     private let trackersCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private let trackersCollectionViewCellIdentifier = "cell"
+    private let trackersCollectionViewSectionIdentifier = "sectionName"
     
 //    MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .tWhite
-        
+        setTrackersCollectionView()
+        setViews()
+    }
+    
+//    MARK: - Private methods
+    
+    private func setTrackersCollectionView() {
         trackersCollectionView.register(TrackerCollectionViewCell.self, forCellWithReuseIdentifier: trackersCollectionViewCellIdentifier)
+        trackersCollectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: trackersCollectionViewSectionIdentifier)
         trackersCollectionView.dataSource = self
         trackersCollectionView.delegate = self
-
-        setViews()
+        
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.headerReferenceSize = CGSize(width: trackersCollectionView.frame.width, height: 50)
+        trackersCollectionView.collectionViewLayout = flowLayout
+        trackersCollectionView.showsVerticalScrollIndicator = false
     }
     
 }
@@ -59,9 +78,6 @@ final class TrackersViewController: UIViewController {
 extension TrackersViewController {
     
     private func setViews() {
-        
-//        let category = TrackerCategory(title: "Category", trackers: [])
-//        categories.append(category)
         
         guard let navigationController else { return }
         guard let tabBarController else { return }
@@ -122,9 +138,28 @@ extension TrackersViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: trackersCollectionViewCellIdentifier, for: indexPath) as? TrackerCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.setCell()
+        let tracker = categories[indexPath.section].trackers[indexPath.row]
+        cell.setCell(trackerBackgroundColor: tracker.color, trackerLabelText: tracker.name, trackerEmojiText: tracker.emoji)
         return cell
     }
+    
+    //    названия для supplementary views
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+
+            if kind == UICollectionView.elementKindSectionHeader {
+                let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: trackersCollectionViewSectionIdentifier, for: indexPath)
+                let label = UILabel()
+                label.text = categories[indexPath.section].title
+                view.addSubview(label)
+                label.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                    label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+                ])
+                return view
+            }
+        return UICollectionReusableView()
+        }
     
 }
 
