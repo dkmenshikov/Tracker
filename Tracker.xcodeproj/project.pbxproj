@@ -22,6 +22,7 @@
 		32803F2B2BF795FC00E5E2F8 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32803F2A2BF795FC00E5E2F8 /* Schedule.swift */; };
 		32803F2D2BF7961F00E5E2F8 /* TrackerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32803F2C2BF7961F00E5E2F8 /* TrackerCategory.swift */; };
 		32803F2F2BF797B800E5E2F8 /* TrackerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32803F2E2BF797B800E5E2F8 /* TrackerRecord.swift */; };
+		32803F362C0276EE00E5E2F8 /* TrackerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32803F352C0276EE00E5E2F8 /* TrackerCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		32803F2A2BF795FC00E5E2F8 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		32803F2C2BF7961F00E5E2F8 /* TrackerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategory.swift; sourceTree = "<group>"; };
 		32803F2E2BF797B800E5E2F8 /* TrackerRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecord.swift; sourceTree = "<group>"; };
+		32803F352C0276EE00E5E2F8 /* TrackerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,7 +77,6 @@
 			isa = PBXGroup;
 			children = (
 				32803F272BF794EF00E5E2F8 /* Models */,
-				3218AA512BEFDB6800F36671 /* Elements */,
 				3218AA462BEFB80000F36671 /* View Controllers */,
 				3218AA322BEFA55300F36671 /* AppDelegate.swift */,
 				3218AA342BEFA55300F36671 /* SceneDelegate.swift */,
@@ -89,9 +90,9 @@
 		3218AA462BEFB80000F36671 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				32803F312C02766400E5E2F8 /* TrackerVC */,
+				32803F322C02769900E5E2F8 /* StatsVC */,
 				32803F302BF7989400E5E2F8 /* Accessory Controllers (nav + tab) */,
-				3218AA472BEFB85500F36671 /* TrackersViewController.swift */,
-				3218AA4B2BEFCB8200F36671 /* StatsViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -102,6 +103,7 @@
 				3218AA522BEFDB8C00F36671 /* TrackerDatePicker.swift */,
 				3218AA542BEFF1AB00F36671 /* TrackerSearchBar.swift */,
 				3218AA562BEFFCB000F36671 /* EmptyListView.swift */,
+				32803F352C0276EE00E5E2F8 /* TrackerCollectionViewCell.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -124,6 +126,23 @@
 				3218AA4F2BEFD2C100F36671 /* TrackersNavigationController.swift */,
 			);
 			path = "Accessory Controllers (nav + tab)";
+			sourceTree = "<group>";
+		};
+		32803F312C02766400E5E2F8 /* TrackerVC */ = {
+			isa = PBXGroup;
+			children = (
+				3218AA472BEFB85500F36671 /* TrackersViewController.swift */,
+				3218AA512BEFDB6800F36671 /* Elements */,
+			);
+			path = TrackerVC;
+			sourceTree = "<group>";
+		};
+		32803F322C02769900E5E2F8 /* StatsVC */ = {
+			isa = PBXGroup;
+			children = (
+				3218AA4B2BEFCB8200F36671 /* StatsViewController.swift */,
+			);
+			path = StatsVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,6 +222,7 @@
 				32803F292BF7951F00E5E2F8 /* Tracker.swift in Sources */,
 				3218AA332BEFA55300F36671 /* AppDelegate.swift in Sources */,
 				3218AA4A2BEFBFD800F36671 /* TabBarController.swift in Sources */,
+				32803F362C0276EE00E5E2F8 /* TrackerCollectionViewCell.swift in Sources */,
 				32803F2D2BF7961F00E5E2F8 /* TrackerCategory.swift in Sources */,
 				3218AA532BEFDB8C00F36671 /* TrackerDatePicker.swift in Sources */,
 				3218AA4C2BEFCB8200F36671 /* StatsViewController.swift in Sources */,
