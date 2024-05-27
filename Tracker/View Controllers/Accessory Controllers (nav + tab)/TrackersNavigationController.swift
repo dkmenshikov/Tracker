@@ -9,6 +9,8 @@ import UIKit
 
 final class TrackersNavigationController: UINavigationController {
     
+    weak var delegateVC: DatePickerDelegate?
+    
     override func viewDidLoad() {
         configureVC()
         configureItems()
@@ -17,6 +19,7 @@ final class TrackersNavigationController: UINavigationController {
     private func configureVC() {
         let trackersVC = TrackersViewController()
         viewControllers = [trackersVC]
+        delegateVC = trackersVC
     }
     
     private func configureItems() {
@@ -26,6 +29,7 @@ final class TrackersNavigationController: UINavigationController {
 //        TODO: - ПЕРЕОПРЕДЕЛИТЬ ОБЛАСТЬ НАЖАТИЯ КНОПКИ НА 42*42 с 19*18
         
         let rightItem = TrackerDatePicker()
+        rightItem.delegateVC = delegateVC
         navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(customView: rightItem)
         
         let searchController = TrackerSearchBar(searchResultsController: nil)

@@ -9,6 +9,8 @@ import UIKit
 
 final class TrackerDatePicker: UIDatePicker {
     
+    weak var delegateVC: DatePickerDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setAppearance()
@@ -36,5 +38,7 @@ final class TrackerDatePicker: UIDatePicker {
         dateFormatter.dateFormat = "dd.MM.yyyy" // Формат даты
         let formattedDate = dateFormatter.string(from: selectedDate)
         print("Выбранная дата: \(formattedDate)")
+        
+        delegateVC?.dateChanged(date: selectedDate)
     }
 }

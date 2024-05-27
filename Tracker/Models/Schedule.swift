@@ -8,5 +8,6 @@
 import Foundation
 
 struct Schedule {
-    let dates: [Date]
+    let dateOfTheBeginning: Date
+    let weekdays: [Bool]
 }
