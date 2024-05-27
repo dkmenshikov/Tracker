@@ -13,7 +13,7 @@ final class TrackersViewController: UIViewController {
     
 //    var categories: [TrackerCategory] = []
     var completedTrackers: [TrackerRecord] = []
-    var categories: [TrackerCategory] = [
+    var categoriesForWeekDay: [TrackerCategory] = [
         TrackerCategory(title: "111", trackers: [
             Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dates: [
                 .init(timeIntervalSince1970: 212314)
@@ -61,12 +61,12 @@ final class TrackersViewController: UIViewController {
     
     private func setTrackersCollectionView() {
         trackersCollectionView.register(TrackerCollectionViewCell.self, forCellWithReuseIdentifier: trackersCollectionViewCellIdentifier)
-        trackersCollectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: trackersCollectionViewSectionIdentifier)
+        trackersCollectionView.register(TrackerCollectionViewCellSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: trackersCollectionViewSectionIdentifier)
         trackersCollectionView.dataSource = self
         trackersCollectionView.delegate = self
         
         let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.headerReferenceSize = CGSize(width: trackersCollectionView.frame.width, height: 50)
+        flowLayout.headerReferenceSize = CGSize(width: trackersCollectionView.frame.width, height: 47)
         trackersCollectionView.collectionViewLayout = flowLayout
         trackersCollectionView.showsVerticalScrollIndicator = false
     }
@@ -89,7 +89,7 @@ extension TrackersViewController {
         view.addSubview(emptyListView)
 
         
-        if !categories.isEmpty {
+        if !categoriesForWeekDay.isEmpty {
             emptyListView.isHidden = true
         }
         
@@ -122,14 +122,14 @@ extension TrackersViewController {
 extension TrackersViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        print(categories.count)
-        return categories.count
+        print(categoriesForWeekDay.count)
+        return categoriesForWeekDay.count
     }
     
 //    установка кол-ва ячеек
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(categories[section].trackers.count)
-        return categories[section].trackers.count
+        print(categoriesForWeekDay[section].trackers.count)
+        return categoriesForWeekDay[section].trackers.count
     }
     
 //    настройка ячейки
@@ -138,7 +138,7 @@ extension TrackersViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: trackersCollectionViewCellIdentifier, for: indexPath) as? TrackerCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let tracker = categories[indexPath.section].trackers[indexPath.row]
+        let tracker = categoriesForWeekDay[indexPath.section].trackers[indexPath.row]
         cell.setCell(trackerBackgroundColor: tracker.color, trackerLabelText: tracker.name, trackerEmojiText: tracker.emoji)
         return cell
     }
@@ -147,19 +147,15 @@ extension TrackersViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 
             if kind == UICollectionView.elementKindSectionHeader {
-                let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: trackersCollectionViewSectionIdentifier, for: indexPath)
-                let label = UILabel()
-                label.text = categories[indexPath.section].title
-                view.addSubview(label)
-                label.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                    label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-                ])
+                guard let view = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: trackersCollectionViewSectionIdentifier,
+                    for: indexPath) as? TrackerCollectionViewCellSectionHeader else { return UICollectionReusableView() }
+                view.headerLabel.text = categoriesForWeekDay[indexPath.section].title
                 return view
             }
         return UICollectionReusableView()
-        }
+    }
     
 }
 

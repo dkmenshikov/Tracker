@@ -23,6 +23,7 @@
 		32803F2D2BF7961F00E5E2F8 /* TrackerCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32803F2C2BF7961F00E5E2F8 /* TrackerCategory.swift */; };
 		32803F2F2BF797B800E5E2F8 /* TrackerRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32803F2E2BF797B800E5E2F8 /* TrackerRecord.swift */; };
 		32803F362C0276EE00E5E2F8 /* TrackerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32803F352C0276EE00E5E2F8 /* TrackerCollectionViewCell.swift */; };
+		32803F382C03825F00E5E2F8 /* TrackerCollectionViewCellSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32803F372C03825F00E5E2F8 /* TrackerCollectionViewCellSectionHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		32803F2C2BF7961F00E5E2F8 /* TrackerCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCategory.swift; sourceTree = "<group>"; };
 		32803F2E2BF797B800E5E2F8 /* TrackerRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerRecord.swift; sourceTree = "<group>"; };
 		32803F352C0276EE00E5E2F8 /* TrackerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCollectionViewCell.swift; sourceTree = "<group>"; };
+		32803F372C03825F00E5E2F8 /* TrackerCollectionViewCellSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerCollectionViewCellSectionHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				3218AA542BEFF1AB00F36671 /* TrackerSearchBar.swift */,
 				3218AA562BEFFCB000F36671 /* EmptyListView.swift */,
 				32803F352C0276EE00E5E2F8 /* TrackerCollectionViewCell.swift */,
+				32803F372C03825F00E5E2F8 /* TrackerCollectionViewCellSectionHeader.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				32803F2D2BF7961F00E5E2F8 /* TrackerCategory.swift in Sources */,
 				3218AA532BEFDB8C00F36671 /* TrackerDatePicker.swift in Sources */,
 				3218AA4C2BEFCB8200F36671 /* StatsViewController.swift in Sources */,
+				32803F382C03825F00E5E2F8 /* TrackerCollectionViewCellSectionHeader.swift in Sources */,
 				3218AA352BEFA55300F36671 /* SceneDelegate.swift in Sources */,
 				3218AA502BEFD2C100F36671 /* TrackersNavigationController.swift in Sources */,
 				3218AA572BEFFCB000F36671 /* EmptyListView.swift in Sources */,
