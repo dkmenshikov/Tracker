@@ -9,7 +9,7 @@ import UIKit
 
 final class TrackersNavigationController: UINavigationController {
     
-    weak var delegateVC: DatePickerDelegate?
+    weak var delegateVC: TrackersNavBarDelegate?
     
     override func viewDidLoad() {
         configureVC()
@@ -33,6 +33,8 @@ final class TrackersNavigationController: UINavigationController {
         navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(customView: rightItem)
         
         let searchController = TrackerSearchBar(searchResultsController: nil)
+        searchController.delegate = delegateVC
+        searchController.searchBar.searchTextField.delegate = delegateVC
         navigationItem.searchController = searchController
         navigationBar.prefersLargeTitles = true
         navigationBar.topItem?.title = "Трекеры"

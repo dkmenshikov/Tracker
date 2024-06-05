@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol DatePickerDelegate: AnyObject {
+protocol TrackersNavBarDelegate: AnyObject, UITextFieldDelegate, UISearchControllerDelegate {
     func dateChanged(date: Date)
 }
 
-final class TrackersViewController: UIViewController, DatePickerDelegate {
+final class TrackersViewController: UIViewController, TrackersNavBarDelegate {
     
 //    MARK: - Public properties
     
@@ -19,22 +19,22 @@ final class TrackersViewController: UIViewController, DatePickerDelegate {
     var completedTrackers: [TrackerRecord] = []
     var categories: [TrackerCategory] = [
         TrackerCategory(title: "111", trackers: [
-            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [true, true, false, false, false, true, true])),
-            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [true, true, true, true, true, true, true])),
-            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [true, true, true, true, true, true, true]))
+            Tracker(id: UUID(), name: "112", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [false, true, false, false, false, true, true])),
+            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [false, true, true, true, true, true, true])),
+            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [false, true, true, true, true, true, true]))
             ]),
         TrackerCategory(title: "FFF", trackers: [
-            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [true, true, true, true, true, true, true])),
-            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [true, true, true, true, true, true, true])),
-            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [true, true, true, true, true, true, true]))
+            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [false, true, true, true, true, true, true])),
+            Tracker(id: UUID(), name: "121", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [false, true, true, true, true, true, true])),
+            Tracker(id: UUID(), name: "121", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [false, true, true, true, true, true, true]))
             ]),
         TrackerCategory(title: "FFF", trackers: [
-            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [true, false, true, true, true, true, true])),
-            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [true, false, true, true, true, true, true])),
-            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [true, false, true, true, true, true, true]))
+            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [false, false, true, true, true, true, true])),
+            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [false, false, true, true, true, true, true])),
+            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [false, false, true, true, true, true, true]))
             ])
         ]
-    var categoriesForWeekday: [TrackerCategory] = []
+    var categoriesFiltered: [TrackerCategory] = []
 
     
 //    MARK: - Private properties
@@ -44,15 +44,25 @@ final class TrackersViewController: UIViewController, DatePickerDelegate {
     private let trackersCollectionViewCellIdentifier = "cell"
     private let trackersCollectionViewSectionIdentifier = "sectionName"
     
+    private var date = Date(timeIntervalSinceNow: 0)
+    private var searchedTitle = ""
+    
 //    MARK: - Public methods
     
     func dateChanged(date: Date) {
-        print(date)
-        let calendar = Calendar.current
-        let weekday = calendar.component(.weekday, from: date)
-        print(weekday)
-        addCategoriesForWeekday(date: date, weekday: weekday)
-        trackersCollectionView.reloadData()
+        self.date = date
+        filterTrackers()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchedTitle = textField.text ?? ""
+        filterTrackers()
+        return true
+    }
+    
+    func willDismissSearchController(_ searchController: UISearchController) {
+        searchedTitle = ""
+        filterTrackers()
     }
     
 //    MARK: - Lifecycle
@@ -60,7 +70,6 @@ final class TrackersViewController: UIViewController, DatePickerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .tWhite
-//        addCategoriesForWeekday()
         dateChanged(date: Date(timeIntervalSinceNow: 0))
         setTrackersCollectionView()
         setViews()
@@ -68,12 +77,17 @@ final class TrackersViewController: UIViewController, DatePickerDelegate {
     
 //    MARK: - Private methods
     
-    private func addCategoriesForWeekday(date: Date, weekday: Int) {
+    private func filterTrackers() {
+        let calendar = Calendar.current
+        let weekday = calendar.component(.weekday, from: date)
+        print("weekday: ", weekday)
         var tempTrackers: [Tracker] = []
         var tempCategories: [TrackerCategory] = []
         categories.forEach {
             $0.trackers.forEach{
-                if ($0.schedule.dateOfTheBeginning <= date) && ($0.schedule.weekdays[weekday-1] == true) {
+                if ($0.schedule.dateOfTheBeginning <= date) &&
+                    ($0.schedule.weekdays[weekday-1] == true) &&
+                    (searchedTitle == "" || $0.name.contains(searchedTitle)) {
                     tempTrackers.append($0)
                 }
             }
@@ -82,7 +96,13 @@ final class TrackersViewController: UIViewController, DatePickerDelegate {
             }
             tempTrackers = []
         }
-        categoriesForWeekday = tempCategories
+        categoriesFiltered = tempCategories
+        if categoriesFiltered.isEmpty {
+            emptyListView.isHidden = false
+        } else {
+            emptyListView.isHidden = true
+        }
+        trackersCollectionView.reloadData()
     }
     
     private func setTrackersCollectionView() {
@@ -113,10 +133,6 @@ extension TrackersViewController {
         view.addSubview(navigationBar)
         view.addSubview(trackersCollectionView)
         view.addSubview(emptyListView)
-
-        if !categoriesForWeekday.isEmpty {
-            emptyListView.isHidden = true
-        }
         
         setConstraints(views: [emptyListView, trackersCollectionView], 
                        tabBar: tabBar,
@@ -147,14 +163,14 @@ extension TrackersViewController {
 extension TrackersViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        print(categoriesForWeekday.count)
-        return categoriesForWeekday.count
+        print(categoriesFiltered.count)
+        return categoriesFiltered.count
     }
     
 //    установка кол-ва ячеек
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(categoriesForWeekday[section].trackers.count)
-        return categoriesForWeekday[section].trackers.count
+        print(categoriesFiltered[section].trackers.count)
+        return categoriesFiltered[section].trackers.count
     }
     
 //    настройка ячейки
@@ -163,7 +179,7 @@ extension TrackersViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: trackersCollectionViewCellIdentifier, for: indexPath) as? TrackerCollectionViewCell else {
             return UICollectionViewCell()
         }
-        let tracker = categoriesForWeekday[indexPath.section].trackers[indexPath.row]
+        let tracker = categoriesFiltered[indexPath.section].trackers[indexPath.row]
         cell.setCell(trackerBackgroundColor: tracker.color, trackerLabelText: tracker.name, trackerEmojiText: tracker.emoji)
         return cell
     }
@@ -176,7 +192,7 @@ extension TrackersViewController: UICollectionViewDataSource {
                     ofKind: kind,
                     withReuseIdentifier: trackersCollectionViewSectionIdentifier,
                     for: indexPath) as? TrackerCollectionViewCellSectionHeader else { return UICollectionReusableView() }
-                view.headerLabel.text = categoriesForWeekday[indexPath.section].title
+                view.headerLabel.text = categoriesFiltered[indexPath.section].title
                 return view
             }
         return UICollectionReusableView()

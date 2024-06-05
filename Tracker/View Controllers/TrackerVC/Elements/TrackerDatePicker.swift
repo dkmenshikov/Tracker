@@ -9,7 +9,7 @@ import UIKit
 
 final class TrackerDatePicker: UIDatePicker {
     
-    weak var delegateVC: DatePickerDelegate?
+    weak var delegateVC: TrackersNavBarDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
