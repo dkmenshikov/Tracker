@@ -24,6 +24,7 @@ final class TrackersNavigationController: UINavigationController {
     
     private func configureItems() {
         let leftItem = UIButton()
+        leftItem.addTarget(self, action: #selector(plusButtonDidTap), for: .touchUpInside)
         leftItem.setImage(.addTrackerButton, for: [])
         navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(customView: leftItem)
 //        TODO: - ПЕРЕОПРЕДЕЛИТЬ ОБЛАСТЬ НАЖАТИЯ КНОПКИ НА 42*42 с 19*18
@@ -40,6 +41,10 @@ final class TrackersNavigationController: UINavigationController {
         navigationBar.topItem?.title = "Трекеры"
         navigationBar.topItem?.searchController = searchController
 
+    }
+    
+    @objc private func plusButtonDidTap() {
+        
     }
 
 }

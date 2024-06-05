@@ -58,7 +58,7 @@ class TrackerCollectionViewCell: UICollectionViewCell {
     
     private func setButtonImage() {
         if isCompleted {
-            cellButton.setImage(.trackerCellDone.withTintColor(trackerBackgroundColor), for: [])
+            cellButton.setImage(.trackerCellCheckmark.withTintColor(trackerBackgroundColor), for: [])
         } else {
             cellButton.setImage(.trackerCellPlus.withTintColor(trackerBackgroundColor), for: [])
         }

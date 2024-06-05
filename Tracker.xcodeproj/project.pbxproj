@@ -93,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				32803F312C02766400E5E2F8 /* TrackerVC */,
+				32803F392C10EC3100E5E2F8 /* Tracker Creation Flow */,
 				32803F322C02769900E5E2F8 /* StatsVC */,
 				32803F302BF7989400E5E2F8 /* Accessory Controllers (nav + tab) */,
 			);
@@ -146,6 +147,13 @@
 				3218AA4B2BEFCB8200F36671 /* StatsViewController.swift */,
 			);
 			path = StatsVC;
+			sourceTree = "<group>";
+		};
+		32803F392C10EC3100E5E2F8 /* Tracker Creation Flow */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Tracker Creation Flow";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

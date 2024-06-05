@@ -9,6 +9,7 @@ import UIKit
 
 protocol TrackersNavBarDelegate: AnyObject, UITextFieldDelegate, UISearchControllerDelegate {
     func dateChanged(date: Date)
+    func addTrackerButtonDidTap()
 }
 
 protocol TrackerCollectionViewCellDelegate: AnyObject {
@@ -52,6 +53,10 @@ final class TrackersViewController: UIViewController, TrackersNavBarDelegate, Tr
     private var searchedTitle = ""
     
 //    MARK: - Public methods
+    
+    func addTrackerButtonDidTap() {
+        
+    }
     
     func cellButtonDidTap(id: UUID, isCompleted: Bool) {
         if isCompleted {
