@@ -33,11 +33,8 @@ final class TrackerDatePicker: UIDatePicker {
     }
     
     @objc func datePickerValueChanged(_ sender: UIDatePicker) {
-        let selectedDate = sender.date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy" // Формат даты
-        let formattedDate = dateFormatter.string(from: selectedDate)
-        print("Выбранная дата: \(formattedDate)")
+        let calendar = Calendar.current
+        let selectedDate = calendar.startOfDay(for: sender.date)
         
         delegateVC?.dateChanged(date: selectedDate)
     }

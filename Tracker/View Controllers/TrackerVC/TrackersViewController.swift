@@ -11,7 +11,11 @@ protocol TrackersNavBarDelegate: AnyObject, UITextFieldDelegate, UISearchControl
     func dateChanged(date: Date)
 }
 
-final class TrackersViewController: UIViewController, TrackersNavBarDelegate {
+protocol TrackerCollectionViewCellDelegate: AnyObject {
+    func cellButtonDidTap(id: UUID, isCompleted: Bool)
+}
+
+final class TrackersViewController: UIViewController, TrackersNavBarDelegate, TrackerCollectionViewCellDelegate {
     
 //    MARK: - Public properties
     
@@ -19,9 +23,9 @@ final class TrackersViewController: UIViewController, TrackersNavBarDelegate {
     var completedTrackers: [TrackerRecord] = []
     var categories: [TrackerCategory] = [
         TrackerCategory(title: "111", trackers: [
-            Tracker(id: UUID(), name: "112", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [false, true, false, false, false, true, true])),
+            Tracker(id: UUID(), name: "112", color: .red, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [false, true, false, false, false, true, true])),
             Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [false, true, true, true, true, true, true])),
-            Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [false, true, true, true, true, true, true]))
+            Tracker(id: UUID(), name: "111", color: .blue, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [false, true, true, true, true, true, true]))
             ]),
         TrackerCategory(title: "FFF", trackers: [
             Tracker(id: UUID(), name: "111", color: .tBlack, emoji: "👾", schedule: Schedule(dateOfTheBeginning: Date(timeIntervalSince1970: 1716768351), weekdays: [false, true, true, true, true, true, true])),
@@ -49,6 +53,17 @@ final class TrackersViewController: UIViewController, TrackersNavBarDelegate {
     
 //    MARK: - Public methods
     
+    func cellButtonDidTap(id: UUID, isCompleted: Bool) {
+        if isCompleted {
+            let newRecord = TrackerRecord(id: id, date: date)
+            completedTrackers.append(newRecord)
+        } else {
+            completedTrackers.removeAll { trackerRecord in
+                trackerRecord.date == date && trackerRecord.id == id
+            }
+        }
+    }
+    
     func dateChanged(date: Date) {
         self.date = date
         filterTrackers()
@@ -70,7 +85,9 @@ final class TrackersViewController: UIViewController, TrackersNavBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .tWhite
-        dateChanged(date: Date(timeIntervalSinceNow: 0))
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: date)
+        dateChanged(date: startOfDay)
         setTrackersCollectionView()
         setViews()
     }
@@ -80,7 +97,6 @@ final class TrackersViewController: UIViewController, TrackersNavBarDelegate {
     private func filterTrackers() {
         let calendar = Calendar.current
         let weekday = calendar.component(.weekday, from: date)
-        print("weekday: ", weekday)
         var tempTrackers: [Tracker] = []
         var tempCategories: [TrackerCategory] = []
         categories.forEach {
@@ -163,24 +179,27 @@ extension TrackersViewController {
 extension TrackersViewController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        print(categoriesFiltered.count)
         return categoriesFiltered.count
     }
     
 //    установка кол-ва ячеек
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(categoriesFiltered[section].trackers.count)
         return categoriesFiltered[section].trackers.count
     }
     
 //    настройка ячейки
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("Cell for item at \(indexPath) is being requested")
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: trackersCollectionViewCellIdentifier, for: indexPath) as? TrackerCollectionViewCell else {
             return UICollectionViewCell()
         }
         let tracker = categoriesFiltered[indexPath.section].trackers[indexPath.row]
-        cell.setCell(trackerBackgroundColor: tracker.color, trackerLabelText: tracker.name, trackerEmojiText: tracker.emoji)
+        let isCompleted = completedTrackers.contains { trackerRecord in
+            trackerRecord.date == date && trackerRecord.id == tracker.id
+        }
+        let completedDays = completedTrackers.filter {
+            $0.id == tracker.id
+        }.count
+        cell.setCell(tracker: tracker, delegate: self, isCompleted: isCompleted, completedDays: completedDays)
         return cell
     }
     
@@ -200,18 +219,18 @@ extension TrackersViewController: UICollectionViewDataSource {
     
 }
 
-//  MARK: - Delegate
+//  MARK: - CollectionViewDelegate
 
-extension TrackersViewController: UITableViewDelegate {
+extension TrackersViewController: UICollectionViewDelegate {
     
 //    тап на ячейку
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as? TrackerCollectionViewCell
+//        let cell = collectionView.cellForItem(at: indexPath) as? TrackerCollectionViewCell
 //        cell?.contentView.backgroundColor = .gray
     }
 //    деселект ячейки
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as? TrackerCollectionViewCell
+//        let cell = collectionView.cellForItem(at: indexPath) as? TrackerCollectionViewCell
 //        cell?.contentView.backgroundColor = .white
     }
     

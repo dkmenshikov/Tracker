@@ -9,30 +9,70 @@ import UIKit
 
 class TrackerCollectionViewCell: UICollectionViewCell {
     
+    private weak var delegateVC: TrackerCollectionViewCellDelegate?
+    
     private var trackerBackgroundColor: UIColor = .black
     private var trackerLabel = UILabel()
     private var trackerEmojiLabel = UILabel()
     
-    private let addDayToStatButton: UIButton = UIButton()
+    private let cellButton: UIButton = UIButton()
     private let quantityLabel: UILabel = UILabel()
     private let trackerBackgroundView = UIView()
     private let emojiBackgroundView = UIView()
     
+    private var isCompleted: Bool = false
+    private var trackerID = UUID()
+    private var completedDays = 0
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setCell()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    func setCell (trackerBackgroundColor: UIColor = .black, trackerLabelText: String = "ПУСТО", trackerEmojiText: String = "☠️") {
-        self.trackerBackgroundColor = trackerBackgroundColor
-        self.trackerLabel.text = trackerLabelText
-        self.trackerEmojiLabel.text = trackerEmojiText
+    func setCell(tracker: Tracker, delegate: TrackerCollectionViewCellDelegate? = nil, isCompleted: Bool, completedDays: Int) {
+        self.trackerBackgroundColor = tracker.color
+        self.trackerLabel.text = tracker.name
+        self.trackerEmojiLabel.text = tracker.emoji
+        self.delegateVC = delegate
+        self.isCompleted = isCompleted
+        self.completedDays = completedDays
+        trackerID = tracker.id
+        cellButton.addTarget(self, action: #selector(cellButtonDidTap), for: .touchUpInside)
         setViews()
+    }
+    
+    @objc private func cellButtonDidTap() {
+        isCompleted = !isCompleted
+        if isCompleted {
+            completedDays += 1
+        } else {
+            completedDays -= 1
+        }
+        setButtonImage()
+        quantityLabel.text = quantityLabelText(count: completedDays)
+        delegateVC?.cellButtonDidTap(id: trackerID, isCompleted: isCompleted)
+    }
+    
+    private func setButtonImage() {
+        if isCompleted {
+            cellButton.setImage(.trackerCellDone.withTintColor(trackerBackgroundColor), for: [])
+        } else {
+            cellButton.setImage(.trackerCellPlus.withTintColor(trackerBackgroundColor), for: [])
+        }
+    }
+    
+    private func quantityLabelText(count: Int) -> String {
+        switch count % 10 {
+        case 1:
+            return "\(count) день"
+        case 2, 3, 4:
+            return "\(count) дня"
+        default:
+            return "\(count) дней"
+        }
     }
     
     private func setViews() {
@@ -43,26 +83,24 @@ class TrackerCollectionViewCell: UICollectionViewCell {
         trackerEmojiLabel.backgroundColor = .clear
         quantityLabel.font = .systemFont(ofSize: 12)
         quantityLabel.textColor = .tBlack
-        quantityLabel.text = "0 дней"
+        quantityLabel.text = quantityLabelText(count: completedDays)
         trackerBackgroundView.backgroundColor = trackerBackgroundColor
         trackerBackgroundView.layer.cornerRadius = 16
         emojiBackgroundView.backgroundColor = .tEmojiBackground
         emojiBackgroundView.layer.cornerRadius = 12
-        addDayToStatButton.backgroundColor = .clear
-        addDayToStatButton.setImage(.trackerCellPlus.withTintColor(trackerBackgroundColor), for: [])
-        
+        setButtonImage()
         contentView.addSubview(trackerBackgroundView)
         trackerBackgroundView.addSubview(emojiBackgroundView)
         emojiBackgroundView.addSubview(trackerEmojiLabel)
         trackerBackgroundView.addSubview(trackerLabel)
-        contentView.addSubview(addDayToStatButton)
+        contentView.addSubview(cellButton)
         contentView.addSubview(quantityLabel)
         
         setConstraints()
     }
     
     private func setConstraints() {
-        [trackerBackgroundView, emojiBackgroundView, trackerEmojiLabel, trackerLabel, quantityLabel, addDayToStatButton].forEach {
+        [trackerBackgroundView, emojiBackgroundView, trackerEmojiLabel, trackerLabel, quantityLabel, cellButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
@@ -103,10 +141,10 @@ class TrackerCollectionViewCell: UICollectionViewCell {
         
 //        addDayToStatButton
         NSLayoutConstraint.activate([
-            addDayToStatButton.heightAnchor.constraint(equalToConstant: 34),
-            addDayToStatButton.widthAnchor.constraint(equalToConstant: 34),
-            addDayToStatButton.centerYAnchor.constraint(equalTo: quantityLabel.centerYAnchor),
-            addDayToStatButton.trailingAnchor.constraint(equalTo: trackerBackgroundView.trailingAnchor, constant: -12)
+            cellButton.heightAnchor.constraint(equalToConstant: 34),
+            cellButton.widthAnchor.constraint(equalToConstant: 34),
+            cellButton.centerYAnchor.constraint(equalTo: quantityLabel.centerYAnchor),
+            cellButton.trailingAnchor.constraint(equalTo: trackerBackgroundView.trailingAnchor, constant: -12)
         ])
         
 //        contentView

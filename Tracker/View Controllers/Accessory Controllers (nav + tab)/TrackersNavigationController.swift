@@ -9,7 +9,7 @@ import UIKit
 
 final class TrackersNavigationController: UINavigationController {
     
-    weak var delegateVC: TrackersNavBarDelegate?
+    private weak var delegateVC: TrackersNavBarDelegate?
     
     override func viewDidLoad() {
         configureVC()
